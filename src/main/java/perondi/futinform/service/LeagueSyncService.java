@@ -34,7 +34,8 @@ public class LeagueSyncService {
             "BL1", new String[]{"Bundesliga", "Germany"},
             "SA",  new String[]{"Serie A", "Italy"},
             "FL1", new String[]{"Ligue 1", "France"},
-            "CL",  new String[]{"Champions League", "Europe"}
+            "CL",  new String[]{"Champions League", "Europe"},
+            "BSA", new String[]{"Brasileirão Série A", "Brazil"}
     );
 
     public void syncAllLeagues() {
@@ -42,7 +43,9 @@ public class LeagueSyncService {
             try {
                 log.info("Sincronizando liga: {}", info[0]);
                 syncLeague(code, info[0], info[1]);
-                Thread.sleep(6000);
+                // 13 segundos entre cada liga — cada liga faz 2 requests
+                // 2 requests a cada 13s = bem abaixo do limite de 10/min
+                Thread.sleep(13000);
             } catch (Exception e) {
                 log.error("Erro ao sincronizar liga {}: {}", code, e.getMessage());
             }
