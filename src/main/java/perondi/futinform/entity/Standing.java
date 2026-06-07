@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Entity
 @Table(name = "standings",
         indexes = {
-                // Índice composto: acelera busca por liga ordenada por posição
                 @Index(name = "idx_standing_league_position",
                         columnList = "league_id, position")
         })

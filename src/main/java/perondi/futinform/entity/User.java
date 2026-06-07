@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID) // gera UUID como string
+    @GeneratedValue(strategy = GenerationType.UUID)
     private String id;
 
     @Column(nullable = false)
@@ -21,14 +21,13 @@ public class User {
     private String email;
 
     @Column(nullable = false)
-    private String password;  // NUNCA salve senha em texto puro — o BCrypt faz o hash
+    private String password;
 
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @Column(nullable = false, unique = true)
     private String phone;
 
-    // Um usuário pode ter zero ou um time favorito
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private UserFavorite favorite;
 }
