@@ -52,11 +52,31 @@ public class LeagueController {
         return ResponseEntity.ok(leagueService.getLeagueData("CL"));
     }
 
-    // Endpoint para disparar a sincronização manualmente (para testar no Bruno)
-    // Depois você vai substituir isso pelo Scheduler automático
+    @GetMapping("/brasileirao")
+    public ResponseEntity<LeagueResponseDTO> getBrasileirao() {
+        return ResponseEntity.ok(leagueService.getLeagueData("BSA"));
+    }
+
     @PostMapping("/sync")
     public ResponseEntity<String> syncAll() {
         leagueSyncService.syncAllLeagues();
         return ResponseEntity.ok("Sincronização concluída!");
+    }
+
+    @PostMapping("/sync/{code}")
+    public ResponseEntity<String> syncOne(@PathVariable String code) {
+        String[] info = switch (code.toUpperCase()) {
+            case "PL"  -> new String[]{"Premier League", "England"};
+            case "PD"  -> new String[]{"La Liga", "Spain"};
+            case "BL1" -> new String[]{"Bundesliga", "Germany"};
+            case "SA"  -> new String[]{"Serie A", "Italy"};
+            case "FL1" -> new String[]{"Ligue 1", "France"};
+            case "CL"  -> new String[]{"Champions League", "Europe"};
+            case "BSA" -> new String[]{"Brasileirão Série A", "Brazil"};
+            default    -> throw new RuntimeException("Código de liga inválido: " + code);
+        };
+
+        leagueSyncService.syncLeague(code.toUpperCase(), info[0], info[1]);
+        return ResponseEntity.ok("Liga " + info[0] + " sincronizada!");
     }
 }
