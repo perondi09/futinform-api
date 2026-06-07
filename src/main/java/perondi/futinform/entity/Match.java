@@ -42,4 +42,7 @@ public class Match {
 
     private LocalDateTime matchDate;
     private Integer matchday;
+
+    @Column(unique = true)
+    private Long externalId;
 }

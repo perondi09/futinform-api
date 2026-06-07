@@ -20,6 +20,9 @@ public class Team {
     private String tla;
     private String crestUrl;
 
+    @Column(unique = true)
+    private Long externalId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "league_id")
     private League league;
