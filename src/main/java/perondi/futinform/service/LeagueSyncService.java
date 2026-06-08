@@ -43,8 +43,6 @@ public class LeagueSyncService {
             try {
                 log.info("Sincronizando liga: {}", info[0]);
                 syncLeague(code, info[0], info[1]);
-                // 13 segundos entre cada liga — cada liga faz 2 requests
-                // 2 requests a cada 13s = bem abaixo do limite de 10/min
                 Thread.sleep(13000);
             } catch (Exception e) {
                 log.error("Erro ao sincronizar liga {}: {}", code, e.getMessage());

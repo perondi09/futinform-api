@@ -30,17 +30,13 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Desativa CSRF — APIs REST não precisam
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // Configura CORS para o Angular conseguir chamar a API
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
 
-                // Sem sessão — JWT é stateless, cada request se autentica sozinho
                 .sessionManagement(session ->
                         session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-                // Regras de acesso
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()      // sem /api
                         .requestMatchers("/leagues/**").permitAll()
@@ -53,7 +49,6 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
 
-                // Adiciona nosso filtro JWT antes do filtro padrão do Spring
                 .addFilterBefore(jwtAuthFilter,
                         UsernamePasswordAuthenticationFilter.class);
 
@@ -61,13 +56,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // BCrypt é o padrão para hash de senhas — nunca salve senha em texto puro
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(12);
     }
 
-    // Permite que o Angular (localhost:4200) chame a API sem bloqueio de CORS
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         var config = new CorsConfiguration();

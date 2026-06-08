@@ -34,10 +34,8 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             return;
         }
 
-        // 3. Remove o "Bearer " e fica só com o token
         String token = authHeader.substring(7);
 
-        // 4. Valida o token
         if (!jwtService.isTokenValid(token)) {
             filterChain.doFilter(request, response);
             return;
@@ -58,7 +56,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // 7. Continua para o próximo filtro e depois para o controller
         filterChain.doFilter(request, response);
     }
 }

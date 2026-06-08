@@ -20,18 +20,14 @@ public class AuthController {
 
     private final AuthService authService;
 
-    // POST /api/auth/register
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(
             @Valid @RequestBody RegisterRequest request) {
-        // @Valid ativa as anotações de validação do DTO
-        // Se alguma falhar, o GlobalExceptionHandler captura e retorna 400
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(authService.register(request));
     }
 
-    // POST /api/auth/login
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(
             @Valid @RequestBody LoginRequest request) {

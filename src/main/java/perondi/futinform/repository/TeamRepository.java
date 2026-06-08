@@ -10,9 +10,7 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 
     Optional<Team> findByExternalId(Long externalId);
 
-    // Busca todos os times de uma liga pelo código
     List<Team> findByLeagueCodeOrderByNameAsc(String leagueCode);
 
-    // Busca times pelo nome (para o usuário pesquisar)
     List<Team> findByNameContainingIgnoreCaseOrderByNameAsc(String name);
 }

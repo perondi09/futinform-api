@@ -13,8 +13,6 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
 
-    // Lista todos os times de uma liga específica
-    // Usado na tela de cadastro quando o usuário filtra por liga
     public List<TeamDTO> getTeamsByLeague(String leagueCode) {
         return teamRepository.findByLeagueCodeOrderByNameAsc(leagueCode)
                 .stream()
@@ -30,8 +28,6 @@ public class TeamService {
                 .toList();
     }
 
-    // Lista todos os times de todas as ligas
-    // Útil para o usuário navegar sem filtro
     public List<TeamDTO> getAllTeams() {
         return teamRepository.findAll()
                 .stream()
@@ -47,7 +43,6 @@ public class TeamService {
                 .toList();
     }
 
-    // Busca times pelo nome — para campo de busca no frontend
     public List<TeamDTO> searchTeams(String name) {
         return teamRepository.findByNameContainingIgnoreCaseOrderByNameAsc(name)
                 .stream()

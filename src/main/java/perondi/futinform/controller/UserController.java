@@ -20,20 +20,14 @@ public class UserController {
     private final UserFavoriteRepository userFavoriteRepository;
     private final LeagueService leagueService;
 
-    // GET /api/users/dashboard
-    // Retorna a tabela e os jogos da liga do time favorito do usuário logado
-    // @AuthenticationPrincipal injeta o User que o JwtAuthFilter registrou no contexto
     @GetMapping("/dashboard")
     public ResponseEntity<LeagueResponseDTO> getDashboard(
             @AuthenticationPrincipal User user) {
 
-        // Busca o time favorito do usuário logado
         UserFavorite favorite = userFavoriteRepository
                 .findByUserId(user.getId())
                 .orElseThrow(() -> new RuntimeException(
                         "Nenhum time favorito configurado"));
-
-        // Usa o código da liga do time favorito para buscar os dados
         String leagueCode = favorite.getTeam().getLeague().getCode();
 
         return ResponseEntity.ok(leagueService.getLeagueData(leagueCode));

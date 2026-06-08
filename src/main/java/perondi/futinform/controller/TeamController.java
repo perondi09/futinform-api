@@ -15,9 +15,6 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    // Lista todos os times de uma liga
-    // GET /teams/league/PL  →  times da Premier League
-    // GET /teams/league/BSA →  times do Brasileirão
     @GetMapping("/league/{leagueCode}")
     public ResponseEntity<List<TeamDTO>> getByLeague(
             @PathVariable String leagueCode) {
@@ -25,15 +22,11 @@ public class TeamController {
                 teamService.getTeamsByLeague(leagueCode.toUpperCase()));
     }
 
-    // Lista todos os times de todas as ligas
-    // GET /teams
     @GetMapping
     public ResponseEntity<List<TeamDTO>> getAll() {
         return ResponseEntity.ok(teamService.getAllTeams());
     }
 
-    // Busca times pelo nome
-    // GET /teams/search?name=manchester
     @GetMapping("/search")
     public ResponseEntity<List<TeamDTO>> search(@RequestParam String name) {
         return ResponseEntity.ok(teamService.searchTeams(name));

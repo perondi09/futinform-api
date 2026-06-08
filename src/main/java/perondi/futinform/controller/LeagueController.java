@@ -15,13 +15,11 @@ public class LeagueController {
     private final LeagueService leagueService;
     private final LeagueSyncService leagueSyncService;
 
-    // Endpoint genérico por código — /api/leagues/PL, /api/leagues/CL, etc.
     @GetMapping("/leagues/{code}")
     public ResponseEntity<LeagueResponseDTO> getByCode(@PathVariable String code) {
         return ResponseEntity.ok(leagueService.getLeagueData(code.toUpperCase()));
     }
 
-    // Atalhos com nomes amigáveis — /api/premier-league, /api/champions-league
     @GetMapping("/premier-league")
     public ResponseEntity<LeagueResponseDTO> getPremierLeague() {
         return ResponseEntity.ok(leagueService.getLeagueData("PL"));
