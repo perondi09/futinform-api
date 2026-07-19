@@ -1,0 +1,21 @@
+info:
+  name: PATCH user
+  type: http
+  seq: 6
+
+http:
+  method: PATCH
+  url: http://localhost:8080/api/users/54ba7ff3-e882-4c3e-a074-1b1e3e01fd6a
+  body:
+    type: json
+    data: |-
+      {
+        "favoriteTeamName": "vasco" 
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
