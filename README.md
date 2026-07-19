@@ -89,7 +89,3 @@ Abaixo estão os endpoints disponíveis. Note que as requisições de atualizaç
 
 * [LinkedIn](https://www.google.com/search?q=https://www.linkedin.com/in/guilherme-perondi)
 * [GitHub](https://www.google.com/search?q=https://github.com/perondi09)
-
-```
-
-```
